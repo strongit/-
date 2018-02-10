@@ -1,0 +1,60 @@
+{% extends "main/index.html" %}
+{% from "wtf.html" import quick_form %}
+
+{% block content %}
+{% if form %}
+    {{ quick_form(form, id="scan-port-form", button_map={'submit': 'info'}) }}
+    <div class="container-fluid" id="scan-result-info">
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+    $(document).ready(function () {
+         $('#scan-port-form > div > label').after('<span style="color:red">（IP格式样例：192.168.0.1或192.168.0.0/30或192.168.0.1-100）</span>');
+        $('form#scan-port-form').validate({
+            rules: {
+                ip_address: {
+                    required: true,
+                    yewuip: true
+                }
+            },
+            submitHandler:function(form){
+                $('#html-body').mLoading({
+                    text: '扫描中...'
+                });
+                form.submit();
+        }
+        });
+
+        function GetQueryString(name)
+        {
+             var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+             var r = window.location.search.substr(1).match(reg);
+             if(r!=null)return  unescape(r[2]); return null;
+        }
+        function ShowResult() {
+            var ip = GetQueryString("ip_address");
+            if(ip == null){
+            }
+            else{
+            $.ajax({
+                type: 'GET',
+                url: "{{ url_for('main.scan_result') }}"+"?ip_address="+ip,
+                dataType: 'json',
+                success: function (data) {
+                    var content = '<table class="table table-bordered" id="scan-info-table"><thead><tr><th>业务IP地址</th><th>开放端口</th></tr></thead><tbody>';
+                 $.each(data, function (key,value) {
+                     content = content + '<tr><td>'+key+'</td><td style="max-width:600px;word-wrap:break-word;word-break:break-all;">'+value+'</td>';
+                 });
+                    content = content + '</table>';
+                    $('#scan-result-info').html(content);
+                }
+            })}
+        }
+        window.setInterval(ShowResult, 1000);
+    });
+    </script>
+{% endblock %}

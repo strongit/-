@@ -1,0 +1,6 @@
+.data/*.db
+.log/*.log
+.tox
+.git
+docs
+*.pyc

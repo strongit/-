@@ -1,0 +1,13 @@
+{%  macro flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% for cat, msg in messages %}
+            <script>
+            Lobibox.notify('{{ cat.lower() }}', {
+                size: 'mini',
+                msg: '{{ msg }}',
+                sound: false
+            })
+            </script>
+        {% endfor %}
+    {% endwith %}
+{% endmacro %}

@@ -1,0 +1,45 @@
+{% extends "main/index.html" %}
+
+{% block title %}用户登录{% endblock %}
+
+{% block body_attribs %}class="login"{% endblock %}
+
+{% block body %}
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form method="post" action="{{ url_for('auth.login') }}">
+              <h1>用户登录</h1>
+              <div>
+                <input type="text" class="form-control" placeholder="用户名" required="" name="username"/>
+              </div>
+              <div>
+                <input type="password" class="form-control" placeholder="密　码" required="" name="password"/>
+              </div>
+              <div>
+                <input type="submit" class="btn btn-success form-control" value="登　录">
+              </div>
+
+              <div class="clearfix"></div>
+
+                <br />
+                 <br />
+
+                <div>
+                  <p><i class="fa fa-copyright"></i> 2017 All Rights Reserved.</p>
+                </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+    {% block scripts %}
+    {{ super() }}
+{% endblock %}
+{% endblock %}
+
+

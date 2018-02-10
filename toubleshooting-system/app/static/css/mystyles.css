@@ -1,0 +1,59 @@
+div#plus-row {
+    text-align: right;
+}
+
+body > div > div > div.right_col > div > table > thead > tr > th {
+    text-align: center;
+}
+
+body > div > div > div.right_col > div > table > tbody > tr > td {
+    text-align: center;
+}
+
+body > div > div > div.right_col > div > table > thead > tr > th#th-option {
+    width: 300px;
+}
+
+body > div > div > div.right_col > div > table > thead > tr > th#th-id {
+    width: 150px;
+}
+
+div#no-data-notify {
+    text-align: center;
+}
+
+div#pagination-row {
+    text-align: center;
+}
+
+#myModalLabel {
+    text-align: left;
+}
+
+input.error { border: 1px solid red; }
+label.error {
+    color: red;
+}
+
+div#check-info {
+    text-align: center;
+}
+
+table#check-info-table > thead > tr > th {
+    text-align: center;
+}
+
+table#check-info-table > tbody > tr > td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#custom_switchs > div > div.row {
+    padding-bottom: 10px;
+}
+
+#custom_switchs > div > div > div.col-xs-1.select_name {
+    text-align: center;
+    line-height: 34px;
+    height: 34px;
+}

@@ -1,0 +1,15 @@
+
+# Use pynetcio machine
+
+# Make sure you have rolled the version in __init__.py
+
+# Merge into master / checkout master
+
+# Check FIX issues in _release.sh
+
+# Run ./_release.sh
+
+# Create a tag for the version
+$ git tag -a v1.4.1 -m "Version 1.4.1 Release"
+$ git push --tags
+

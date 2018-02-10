@@ -1,0 +1,143 @@
+{% extends "main/index.html" %}
+{% from "wtf.html" import quick_form %}
+{%  from "pagination.html" import render_pagination %}
+
+{% block content %}
+{% if lines %}
+    <div class="container-fluid">
+    <div class="row" id="plus-row">
+        <a href="{{ url_for('main.netlines', option='add', page=page) }}" class="btn btn-success btn-sm" id="plus-button" role="button"><i class="fa fa-plus"></i> 新增</a>
+    </div>
+    <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th id="th-id">ID</th>
+            <th>线路</th>
+            <th>类型</th>
+            <th id="th-option">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for line in lines %}
+        <tr>
+            <td>{{ line.id }}</td>
+            <td>{{ line.name }}</td>
+            <td>{% if line.type == 1 %}基本类型{% elif line.type == 2 %}定制类型{% endif %}</td>
+            <td>
+                <a href="{{ url_for('main.netlines', option='edit', line_id=line.id, page=page) }}" class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i> 修改</a>
+                <!-- Button trigger modal -->
+                <a  class="btn btn-danger btn-xs" role="button" data-toggle="modal" data-target="#DeleteLine{{ line.id }}"><i class="fa fa-trash"></i> 删除</a>
+                <!-- Modal -->
+                <div class="modal fade" id="DeleteLine{{ line.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">删除确认</h4>
+                      </div>
+                      <div class="modal-body">
+                       确定要删除线路（{{ line.name }}）？
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <a href="{{ url_for('main.netlines', option='delete', line_id=line.id) }}" role="button" class="btn btn-primary">确定</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <div class="row" id="pagination-row">{{ render_pagination(pagination, '.netlines') }}</div>
+    </div>
+    {% elif not form %}
+    <div class="row" id="no-data-notify">目前还没有添加线路，请前往<a href="{{ url_for('main.netlines', option='add', page=page) }}" style="color:red">添加</a></div>
+{% endif %}
+{% if form %}
+    {{ quick_form(form, button_map={'submit': 'info'}, id="netline-form") }}
+    <hr>
+    <a href="{{ url_for('main.netlines', page=page) }}"><i class="fa fa-arrow-left"></i> 返回列表</a>
+{% endif %}
+{% endblock %}
+
+{% if form %}
+    {% block scripts %}
+        {{ super() }}
+        <script>
+         var option = '<option value="0">请选择</option>';
+         var num = 1;
+            {% if switchs_option %}
+                {% for option in switchs_option %}
+                    option += '<option value="{{ option[0] }}">{{ option[1] }}</option>';
+                {% endfor %}
+            {% endif %}
+         var new_row = '<div class="row"><div class="col-xs-1 select_name"></div><div class="col-xs-4"><select class="custom-switchs-select form-control">'+option+'</select></div><div class="col-xs-4"><button type="button" class="btn btn-sm btn-success" onclick="AddSelect($(this))"><i class="fa fa-plus"></i> 添加</button><button type="button" class="btn btn-sm btn-danger" onclick="DeleteSelect($(this))"><i class="fa fa-trash"></i> 删除</button></div></div>';
+         function FlushSelect() {
+            var selects = $('div#custom_switchs').find('select.custom-switchs-select');
+            $.each(selects, function (i, select) {
+                var level = '层级'+(i+1);
+                var name = 'select'+(i+1);
+                $(select).parent().prev().html(level);
+                $(select).attr('id', name);
+                $(select).attr('name', name);
+            })
+         }
+        function AddSelect(obj) {
+            obj.parent().parent().after(new_row);
+            num = $('div#custom_switchs').find('select.custom-switchs-select').length;
+            FlushSelect();
+        }
+        function DeleteSelect(obj) {
+            if(num==1){
+                 Lobibox.notify('warning', {
+                size: 'mini',
+                msg: '定制线路至少需要一台交换机',
+                sound: false
+            })
+            }
+            else{
+            obj.parent().parent().remove();
+            num = $('div#custom_switchs').find('select.custom-switchs-select').length;
+            FlushSelect();
+        }}
+        $(document).ready(function () {
+            $('#type').change(function () {
+                var value = $('#type').val();
+                if(value==2){
+                    $('#netline-form > div:nth-child(3)').after('<div id="custom_switchs"><div class="form-group required"><label class="control-label" for="custom">定制线路</label>'+new_row+'</div></div>');
+                     FlushSelect();
+                }else{
+                    $('#custom_switchs').remove()
+                }
+            });
+        });
+         {% if custom_switchs %}
+             $(document).ready(function () {
+                 var value = $('#type').val();
+                 if(value==2){
+                     $('#netline-form > div:nth-child(3)').after('<div id="custom_switchs"><div class="form-group required"><label class="control-label" for="custom">定制线路</label></div></div>');
+                     {% for i in custom_switchs[::-1] %}
+                         var option = '<option value="0">请选择</option>';
+                         {% if switchs_option %}
+                            {% for option in switchs_option %}
+                                {% if option[0] == i|int %}
+                                    option += '<option selected value="{{ option[0] }}">{{ option[1] }}</option>';
+                                {% else %}
+                                     option += '<option value="{{ option[0] }}">{{ option[1] }}</option>';
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                         var new_row = '<div class="row"><div class="col-xs-1 select_name"></div><div class="col-xs-4"><select class="custom-switchs-select form-control">'+option+'</select></div><div class="col-xs-4"><button type="button" class="btn btn-sm btn-success" onclick="AddSelect($(this))"><i class="fa fa-plus"></i> 添加</button><button type="button" class="btn btn-sm btn-danger" onclick="DeleteSelect($(this))"><i class="fa fa-trash"></i> 删除</button></div></div>';
+                         $('div#custom_switchs div.form-group label').after(new_row);
+                         num = $('div#custom_switchs').find('select.custom-switchs-select').length;
+                     {% endfor %}
+                     FlushSelect();
+                 }
+             });
+         {% endif %}
+        </script>
+    {% endblock %}
+{% endif %}

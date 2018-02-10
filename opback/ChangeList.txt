@@ -1,0 +1,228 @@
+Changelog
+=========
+
+%%version%% (unreleased)
+------------------------
+
+- Merge branch 'develop' [promisejohn]
+
+- Some change. [promisejohn]
+
+- Merge branch 'develop' of http://github.com/tecstack/opback into
+  develop. [leannmak]
+
+- Fix flake. [promisejohn]
+
+- Merge. [promisejohn]
+
+- Try merge. [promisejohn]
+
+- Add flask-marshmallow to User. [promisejohn]
+
+- Change vminfo post. [leannmak]
+
+- Add flask-cors. [leannmak]
+
+- Add test 4 vminfo GET by id. [leannmak]
+
+- Add unittest 4 vminfo. [leannmak]
+
+- Fix 4 flake8. [leannmak]
+
+- Remove cors. [leannmak]
+
+- Modify cors. [leannmak]
+
+- Change tecstack/init. [seethedoor]
+
+- Change /tecstack/vminfo/__init_.py;add .data/data0793.sql.
+  [seethedoor]
+
+- Modify manager. [leannmak]
+
+- Modify tecstack/__init__.py. [leannmak]
+
+- Modify tecstack/__init__.py. [leannmak]
+
+- Change config.py,scripts/manager. [seethedoor]
+
+- Modify server for vminfo. [leannmak]
+
+- Delete vminfo from root dir. [leannmak]
+
+- Add the module VMINFO. [seethedoor]
+
+- Add module vminfo. [seethedoor]
+
+- Modf devmodels for flake8. [seethedoor]
+
+- Modf devmodels.py. [seethedoor]
+
+- Add devmodels. [seethedoor]
+
+- Fix testApp. [promisejohn]
+
+- Fix bugs of refactoring. [promisejohn]
+
+- Pass flake8 test. [promisejohn]
+
+- Refacted, add runserver.py in root dir. [promisejohn]
+
+- OrderedDict is only availalbe from python 2.7. [promisejohn]
+
+- Fix tox build. [promisejohn]
+
+- Fix .log auto gen and build icon in reame.md. [promisejohn]
+
+- Fix tox building. [promisejohn]
+
+- Merge vmapi.py. [promisejohn]
+
+- Add total page. [leannmak]
+
+- Add todo and user model with rest service. [promisejohn]
+
+- Add demo api and updated manage.py. [promisejohn]
+
+- Revise vmapi.py. [leannmak]
+
+- Add vmapi.py & revise model.py. [leannmak]
+
+- Change package to tecstack && add scripts. [promisejohn]
+
+- Fix ci bug. [promisejohn]
+
+- Merge ci dependency to one txt. [promisejohn]
+
+- Add branch develop to CI. [promisejohn]
+
+- Add sqlalchemy and logging support. [promisejohn]
+
+- Merge branch 'master' of github.com:tecstack/helloworld. [leannmak]
+
+- Add model. [seethedoor]
+
+- Add RESTful API 4 Model User. [leannmak]
+
+- Add leannmak's study notes. [leannmak]
+
+- Merge branch 'master' of https://github.com/tecstack/helloworld.
+  [hangxing00]
+
+- Add some subscriber ;) [Promise]
+
+- Merge branch 'master' of github.com:tecstack/helloworld. [linenhua]
+
+- Use dev upload 20150615. [linenhua]
+
+- Why. [hangxing00]
+
+- Test. [hangxing00]
+
+- Git stash. [hangxing00]
+
+- Merged bug fix 101. [hangxing00]
+
+- Fix bug 101. [hangxing00]
+
+- Merge with no-ff. [hangxing00]
+
+- Add merge. [hangxing00]
+
+- Conflict fixed. [hangxing00]
+
+- AND simple. [hangxing00]
+
+- & simple. [hangxing00]
+
+- Branch test. [hangxing00]
+
+- Delete pyeclipse project files. [promisejohn]
+
+- Ignore eclipse project files. [promisejohn]
+
+- Merge branch 'master' of ssh://tecstack.github/tecstack/helloworld.
+  [promisejohn]
+
+- Merge remote-tracking branch 'origin/master' [pangpang110]
+
+- Revert "Revert "end"" [王喆]
+
+  This reverts commit d16b471d04680876ba93e007219ffe9ece88bb3b.
+
+- Revert "Revert "third commit"" [王喆]
+
+  This reverts commit db09af5762e4e65c59def01e4539a37e639f3585.
+
+- Revert "third commit" [王喆]
+
+  This reverts commit 5b6a975e8bd172f89728b225e4740f7522a782ac.
+
+- Revert "end" [王喆]
+
+  This reverts commit bf1eb791974e9b61b54412ce7ca523249dcce7ba.
+
+- Commit. [pangpang110]
+
+- Add new file. [pangpang110]
+
+- Change log updated. [Promise]
+
+- Add usage in readme.md. [promisejohn]
+
+- Remove one build notification email. [promisejohn]
+
+- End. [王喆]
+
+- Third commit. [王喆]
+
+- Second commit. [王喆]
+
+- Clone\modify\upload. [linenhua]
+
+- Merge pull request #2 from tecstack/revert-1-master. [Promise]
+
+  Revert "change app.py"
+
+- Revert "change app.py" [Promise]
+
+- Test-helloaz. [王喆]
+
+- Merge pull request #1 from seethedoor/master. [Promise]
+
+  change app.py by DS
+
+- Change app.py. [DaiSheng]
+
+- Add some tip to readme.md. [promisejohn]
+
+- Update README.md. [Promise]
+
+  add coverage badges
+
+- Add coveralls python libs. [promisejohn]
+
+- Merge branch 'master' of ssh://tecstack.github/tecstack/helloworld
+  with README.md contents. [promisejohn]
+
+- Update README.md. [Promise]
+
+  add download status icon , fake ofcourse ;)
+
+- Update README.md. [Promise]
+
+  add travis-ci.org build status
+
+- Add coveralls. [promisejohn]
+
+- Test. [promisejohn]
+
+- Change sphinx prefix to s_ [promisejohn]
+
+- Change sphinx _ to . for github. [promisejohn]
+
+- Done project structure. [promisejohn]
+
+- Initial commit. [Promise]
+
+

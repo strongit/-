@@ -1,0 +1,62 @@
+{% extends "main/index.html" %}
+{% from "wtf.html" import quick_form %}
+{%  from "pagination.html" import render_pagination %}
+
+{% block content %}
+{% if areas %}
+    <div class="container-fluid">
+    <div class="row" id="plus-row">
+        <a href="{{ url_for('main.areas', option='add', page=page) }}" class="btn btn-success btn-sm" id="plus-button" role="button"><i class="fa fa-plus"></i> 新增</a>
+    </div>
+    <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th id="th-id">ID</th>
+            <th>区域名</th>
+            <th id="th-option">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for area in areas %}
+        <tr>
+            <td>{{ area.id }}</td>
+            <td>{{ area.name }}</td>
+            <td>
+                <a href="{{ url_for('main.areas', option='edit', area_id=area.id, page=page) }}" class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i> 修改</a>
+                <!-- Button trigger modal -->
+                <a  class="btn btn-danger btn-xs" role="button" data-toggle="modal" data-target="#DeleteArea{{ area.id }}"><i class="fa fa-trash"></i> 删除</a>
+                <!-- Modal -->
+                <div class="modal fade" id="DeleteArea{{ area.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">删除确认</h4>
+                      </div>
+                      <div class="modal-body">
+                       确定要删除区域（{{ area.name }}）？
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <a href="{{ url_for('main.areas', option='delete', area_id=area.id) }}" role="button" class="btn btn-primary">确定</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <div class="row" id="pagination-row">{{ render_pagination(pagination, '.areas') }}</div>
+    </div>
+    {% elif not form %}
+    <div class="row" id="no-data-notify">目前还没有添加区域，请前往<a href="{{ url_for('main.areas', option='add', page=page) }}" style="color:red">添加</a></div>
+{% endif %}
+{% if form %}
+    {{ quick_form(form, button_map={'submit': 'info'}) }}
+    <hr>
+    <a href="{{ url_for('main.areas', page=page) }}"><i class="fa fa-arrow-left"></i> 返回列表</a>
+{% endif %}
+{% endblock %}

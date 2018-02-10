@@ -1,0 +1,31 @@
+language: python
+python:
+    - "2.7"
+service: mysql
+before_script:
+  - mysql -e 'create database test;' 
+  - mysql -e 'create database common;'
+install:
+    - "pip install -r requirements.txt"
+script:
+    #- python scripts/manager.py recreatedb
+    - tox
+    - nosetests -v --with-coverage --cover-package=promise
+notifications:
+    email:
+        recipients:
+            #- promisejohn@qq.com
+            - 13802882681@139.com
+            - 13802880354@139.com
+            - 13802882778@139.com
+        on_success: always
+        on_failure: always
+
+branches:
+    only:
+        - master
+        - develop
+        - promise
+
+after_success:
+    - coveralls

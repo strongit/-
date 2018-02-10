@@ -1,0 +1,222 @@
+{% from "_flashed_messages.html" import flashed_messages %}
+{% block doc -%}
+<!DOCTYPE html>
+<html {% block html_attribs %}lang="en"{% endblock html_attribs %}>
+{%- block html %}
+  <head>
+   {%- block head %}
+    {%- block metas %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%- endblock metas %}
+
+    <title>{% block title %}网宿科技--排错系统 V1.0{% endblock title %}</title>
+
+    {%- block styles %}
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css', _external=True) }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css', _external=True) }}" rel="stylesheet">
+{#    <!-- NProgress -->#}
+{#    <link href="{{ url_for('static', filename='nprogress/css/nprogress.css', _external=True) }}" rel="stylesheet">#}
+{#    <!-- iCheck -->#}
+{#    <link href="{{ url_for('static', filename='iCheck/skins/flat/green.css', _external=True) }}" rel="stylesheet">#}
+{#	#}
+{#    <!-- bootstrap-progressbar -->#}
+{#     <link href="{{ url_for('static', filename='bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css', _external=True) }}" rel="stylesheet">#}
+{#    <!-- JQVMap -->#}
+{#    <link href="{{ url_for('static', filename='jqvmap/css/jqvmap.min.css', _external=True) }}" rel="stylesheet">#}
+{#    <!-- bootstrap-daterangepicker -->#}
+{#    <link href="{{ url_for('static', filename='bootstrap-daterangepicker/css/daterangepicker.css', _external=True) }}" rel="stylesheet">#}
+
+    <!-- Custom Theme Style -->
+    <link href="{{ url_for('static', filename='build/css/custom.min.css', _external=True) }}" rel="stylesheet">
+
+    <!-- LobiboxStyle -->
+    <link href="{{ url_for('static', filename='lobibox/css/lobibox.min.css', _external=True) }}" rel="stylesheet">
+
+     <!-- mLoading Style -->
+    <link href="{{ url_for('static', filename='mloading/css/jquery.mloading.css', _external=True) }}" rel="stylesheet">
+
+     <!-- MyStyle -->
+    <link href="{{ url_for('static', filename='css/mystyles.css', _external=True) }}" rel="stylesheet">
+    {%- endblock styles %}
+   {%- endblock head %}
+  </head>
+
+  <body {% block body_attribs %}class="nav-md" id="html-body"{% endblock body_attribs %}>
+  {% block body -%}
+    <div class="container body">
+      <div class="main_container">
+      {%- block navbar %}
+      {%- block sidebar %}
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="{{ url_for('main.index') }}" class="site_title"><i class="fa fa-desktop"></i> <span>排错系统 V1.0</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="{{ url_for('static', filename='images/img.jpg', _external=True) }}" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>欢迎您,</span>
+                <h2>{{ current_user.username }}</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+                  <li><a href="{{ url_for('main.index') }}"><i class="fa fa-home"></i> 主页 </a>
+                  <li><a href="{{ url_for('main.check_ip') }}"><i class="fa fa-rss"></i> IP检测 </a>
+                  <li><a href="{{ url_for('main.scan_port') }}"><i class="fa fa-search"></i> 端口扫描 </a>
+                  </li>
+                  <li><a><i class="fa fa-cogs"></i>基础设置 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url_for('main.areas') }}">区域管理</a></li>
+                      <li><a href="{{ url_for('main.netlines') }}">线路管理</a></li>
+                      <li><a href="{{ url_for('main.certificates') }}">凭证管理</a></li>
+                      <li><a href="{{ url_for('main.switchs') }}">交换机管理</a></li>
+                      <li><a href="{{ url_for('main.ip_addresses') }}">业务IP管理</a></li>
+                    </ul>
+                  </li>
+                    {% if current_user.is_admin %}
+                    <li><a href="{{ url_for('auth.users') }}"><i class="fa fa-users"></i> 用户管理 </a>
+                    {% endif %}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="退出" href="{{ url_for('auth.logout') }}">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+        {%- endblock sidebar %}
+        {%- block topbar %}
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ url_for('static', filename='images/img.jpg', _external=True) }}" alt="">{{ current_user.username }}
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                      {% if current_user.is_admin %}
+                           <li><a href="{{ url_for('auth.admin_change_password') }}"><i class="fa fa-edit pull-right"></i> 修改密码</a></li>
+                      {% else %}
+                   <li><a href="{{ url_for('auth.change_password') }}"><i class="fa fa-edit pull-right"></i> 修改密码</a></li>
+                      {% endif %}
+                    <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out pull-right"></i> 退出</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+        {%- endblock topbar %}
+        {%- endblock navbar %}
+        <!-- page content -->
+        <div class="right_col" role="main">
+        {%- block content %}
+
+        {%- endblock content %}
+        </div>
+    </div>
+    </div>
+
+
+    {% block scripts %}
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='jquery/js/jquery.min.js', _external=True) }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js', _external=True) }}"></script>
+{#    <!-- FastClick -->#}
+{#    <script src="{{ url_for('static', filename='fastclick/js/fastclick.js', _external=True) }}"></script>#}
+{#    <!-- NProgress -->#}
+{#    <script src="{{ url_for('static', filename='nprogress/js/nprogress.js', _external=True) }}"></script>#}
+{#    <!-- Chart.js -->#}
+{#    <script src="{{ url_for('static', filename='Chartjs/js/Chart.min.js', _external=True) }}"></script>#}
+{#    <!-- gauge.js -->#}
+{#    <script src="{{ url_for('static', filename='gaugejs/js/gauge.min.js', _external=True) }}"></script>#}
+{#    <!-- bootstrap-progressbar -->#}
+{#    <script src="{{ url_for('static', filename='bootstrap-progressbar/js/bootstrap-progressbar.min.js', _external=True) }}"></script>#}
+{#    <!-- iCheck -->#}
+{#    <script src="{{ url_for('static', filename='iCheck/js/icheck.min.js', _external=True) }}"></script>#}
+{#    <!-- Skycons -->#}
+{#    <script src="{{ url_for('static', filename='skycons/js/skycons.js', _external=True) }}"></script>#}
+{#    <!-- Flot -->#}
+{#    <script src="{{ url_for('static', filename='Flot/js/jquery.flot.js', _external=True) }}"></script>#}
+{#    <script src="{{ url_for('static', filename='Flot/js/jquery.flot.pie.js', _external=True) }}"></script>#}
+{#    <script src="{{ url_for('static', filename='Flot/js/jquery.flot.time.js', _external=True) }}"></script>#}
+{#    <script src="{{ url_for('static', filename='Flot/js/jquery.flot.stack.js', _external=True) }}"></script>#}
+{#    <script src="{{ url_for('static', filename='Flot/js/jquery.flot.resize.js', _external=True) }}"></script>#}
+{#    <!-- Flot plugins -->#}
+{#    <script src="{{ url_for('static', filename='flotorderbars/js/jquery.flot.orderBars.js', _external=True) }}"></script>#}
+{#    <script src="{{ url_for('static', filename='flot-spline/js/jquery.flot.spline.min.js', _external=True) }}"></script>#}
+{#    <script src="{{ url_for('static', filename='flotcurvedlines/js/curvedLines.js', _external=True) }}"></script>#}
+{#    <!-- DateJS -->#}
+{#    <script src="{{ url_for('static', filename='DateJS/js/date.js', _external=True) }}"></script>#}
+{#    <!-- JQVMap -->#}
+{#    <script src="{{ url_for('static', filename='jqvmap/js/jquery.vmap.min.js', _external=True) }}"></script>#}
+{#    <script src="{{ url_for('static', filename='jqvmap/js/maps/jquery.vmap.world.js', _external=True) }}"></script>#}
+{#    <script src="{{ url_for('static', filename='jqvmap/js/jquery.vmap.sampledata.js', _external=True) }}"></script>#}
+{#    <!-- bootstrap-daterangepicker -->#}
+{#    <script src="{{ url_for('static', filename='moment/js/moment.min.js', _external=True) }}"></script>#}
+{#    <script src="{{ url_for('static', filename='bootstrap-daterangepicker/js/daterangepicker.js', _external=True) }}"></script>#}
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url_for('static', filename='build/js/custom.min.js', _external=True) }}"></script>
+
+    <!-- Lobibox Scripts -->
+    <script src="{{ url_for('static', filename='lobibox/js/lobibox.min.js', _external=True) }}"></script>
+
+     <!-- mLoading Scripts -->
+    <script src="{{ url_for('static', filename='mloading/js/jquery.mloading.js', _external=True) }}"></script>
+
+    <!-- Validate Scripts -->
+    <script src="{{ url_for('static', filename='validate/js/jquery.validate.min.js', _external=True) }}"></script>
+    <script src="{{ url_for('static', filename='validate/js/messages_zh.min.js', _external=True) }}"></script>
+     <script src="{{ url_for('static', filename='validate/js/additional-methods.js', _external=True) }}"></script>
+    {{ flashed_messages() }}
+    {%- endblock scripts %}
+  {%- endblock body %}
+  </body>
+{%- endblock html %}
+</html>
+{% endblock doc -%}

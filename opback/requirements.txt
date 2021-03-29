@@ -34,7 +34,7 @@ pep8==1.5.7
 pluggy==0.3.0
 py==1.4.28
 pyflakes==0.8.1
-Pygments==2.0.2
+Pygments==2.7.4
 python-coveralls==2.5.0
 pytz==2015.4
 PyYAML==3.11
